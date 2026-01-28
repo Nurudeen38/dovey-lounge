@@ -38,7 +38,7 @@ const Home = () => {
                                     variant="h6"
                                     sx={{ color: 'secondary.main', mb: 2, fontWeight: 400 }}
                                 >
-                                    LUXURY NAIL SPA
+                                    Dovey's Nail Lounge
                                 </Typography>
                                 <Typography variant="h1" sx={{ mb: 3, color: 'text.primary' }}>
                                     Elegance at Your Fingertips
@@ -52,9 +52,18 @@ const Home = () => {
                                         lineHeight: 1.8,
                                     }}
                                 >
-                                    Experience the art of beauty at Dovey Nails Lounge. From
-                                    exquisite nail designs to lash extensions and permanent
-                                    makeup, we craft elegance tailored to you.
+                                    Located at Dawaki, Abuja, Dovey's Nail Lounge is the leading destination for exquisite and classy nail designs that will give you that timeless look. If you are looking for the best nail techs in Abuja, then you have come to the right place.
+                                </Typography>
+                                <Typography
+                                    variant="body1"
+                                    sx={{
+                                        color: 'text.secondary',
+                                        mb: 4,
+                                        maxWidth: 450,
+                                        lineHeight: 1.8,
+                                    }}
+                                >
+                                    We also offer other beauty services such as lash extensions, manicure and pedicure treatments, piercings, tattoos, makeup, etc, making us your one-stop shop for everything beauty in Abuja.
                                 </Typography>
                                 <Stack direction="row" spacing={2}>
                                     <Button

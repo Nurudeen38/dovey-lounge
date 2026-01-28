@@ -24,10 +24,11 @@ import {
 import AOS from 'aos';
 import {
     ADDRESS,
+    BUSINESS_HOURS,
+    GOOGLE_MAPS_URL,
     PHONE,
     SOCIAL_HANDLE,
-    BUSINESS_HOURS,
-
+    SOCIAL_LINKS,
 } from '@/constants';
 import { SectionTitle, ContactInfoItem, SEO } from '@/components';
 import { useBooking } from '@/context/BookingContext';
@@ -40,13 +41,15 @@ const TikTokIcon = () => (
     </svg>
 );
 
+const getSocialUrl = (platform: string) => SOCIAL_LINKS.find(s => s.platform === platform)?.url;
+
 const CONTACT_INFO = [
-    { label: 'Address', value: ADDRESS, icon: <LocationOn /> },
-    { label: 'Phone', value: PHONE, icon: <Phone /> },
-    { label: 'Instagram', value: SOCIAL_HANDLE, icon: <Instagram /> },
-    { label: 'TikTok', value: SOCIAL_HANDLE, icon: <TikTokIcon /> },
-    { label: 'Facebook', value: SOCIAL_HANDLE, icon: <Facebook /> },
-    { label: 'Twitter', value: SOCIAL_HANDLE, icon: <Twitter /> },
+    { label: 'Address', value: ADDRESS, icon: <LocationOn />, href: GOOGLE_MAPS_URL },
+    { label: 'Phone', value: PHONE, icon: <Phone />, href: `tel:${PHONE}` },
+    { label: 'Instagram', value: SOCIAL_HANDLE, icon: <Instagram />, href: getSocialUrl('Instagram') },
+    { label: 'TikTok', value: SOCIAL_HANDLE, icon: <TikTokIcon />, href: getSocialUrl('TikTok') },
+    { label: 'Facebook', value: SOCIAL_HANDLE, icon: <Facebook />, href: getSocialUrl('Facebook') },
+    { label: 'Twitter', value: SOCIAL_HANDLE, icon: <Twitter />, href: getSocialUrl('Twitter') },
 ];
 
 const contactSchema = z.object({
@@ -332,26 +335,7 @@ Message: ${formData.message || 'No additional message'}`;
                 </Container>
             </Box>
 
-            {/* Map Placeholder */}
-            <Box
-                sx={{
-                    height: 400,
-                    bgcolor: '#1a1a1a',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}
-            >
-                <Typography
-                    sx={{
-                        color: 'rgba(250,249,246,0.5)',
-                        fontFamily: '"Cormorant Garamond", serif',
-                        fontSize: '1.5rem',
-                    }}
-                >
-                    Map Integration Coming Soon
-                </Typography>
-            </Box>
+
 
             <Snackbar
                 open={snackbar.open}

@@ -6,9 +6,10 @@ interface ContactInfoItemProps {
     icon: ReactNode;
     label: string;
     value: string;
+    href?: string;
 }
 
-const ContactInfoItem = ({ icon, label, value }: ContactInfoItemProps) => {
+const ContactInfoItem = ({ icon, label, value, href }: ContactInfoItemProps) => {
     return (
         <Box sx={{ display: 'flex', gap: 2 }}>
             <Box sx={{ color: 'secondary.main', mt: 0.5 }}>
@@ -21,9 +22,30 @@ const ContactInfoItem = ({ icon, label, value }: ContactInfoItemProps) => {
                 >
                     {label}
                 </Typography>
-                <Typography variant="body1" color="text.secondary">
-                    {value}
-                </Typography>
+                {href ? (
+                    <Typography
+                        variant="body1"
+                        component="a"
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        sx={{
+                            color: 'text.secondary',
+                            textDecoration: 'none',
+                            transition: 'color 0.2s',
+                            '&:hover': {
+                                color: 'secondary.main',
+                                textDecoration: 'underline',
+                            },
+                        }}
+                    >
+                        {value}
+                    </Typography>
+                ) : (
+                    <Typography variant="body1" color="text.secondary">
+                        {value}
+                    </Typography>
+                )}
             </Box>
         </Box>
     );
