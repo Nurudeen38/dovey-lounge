@@ -42,7 +42,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     { id: 3, category: 'nails', title: 'French Tips', color: '#F5DEB3', imageUrl: frenchTipsImg },
     { id: 4, category: 'nails', title: 'Gel X Design', color: '#E6E6FA', imageUrl: gelXImg },
     { id: 5, category: 'nails', title: 'Chrome Nails', color: '#C9A962', imageUrl: polishImg },
-    { id: 6, category: 'nails', title: 'Ombre Set', color: '#FFE4E1', imageUrl: pressOnImg },
+    { id: 6, category: 'nails', title: 'Press-on Nails', color: '#FFE4E1', imageUrl: pressOnImg },
     { id: 7, category: 'beauty', title: 'Lash Extensions', color: '#2D5A4A', imageUrl: lashExtImg },
     { id: 8, category: 'beauty', title: 'Brow Work', color: '#8B7355', imageUrl: browWorkImg },
     { id: 9, category: 'beauty', title: 'Makeup Look', color: '#CD853F', imageUrl: makeupImg },
