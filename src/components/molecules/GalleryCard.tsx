@@ -32,16 +32,21 @@ const GalleryCard = ({ title, color, imageUrl, index = 0 }: GalleryCardProps) =>
                     '& .overlay': {
                         opacity: 1,
                     },
+                    '& .title': {
+                        opacity: 0,
+                    },
                 },
             }}
         >
             <Typography
+                className="title"
                 sx={{
                     color: imageUrl ? '#FAF9F6' : (isDark ? '#FAF9F6' : '#1a1a1a'),
                     fontFamily: '"Cormorant Garamond", serif',
                     fontSize: '1.5rem',
                     zIndex: 1,
                     textShadow: imageUrl ? '0 2px 4px rgba(0,0,0,0.5)' : 'none',
+                    transition: 'opacity 0.3s ease',
                 }}
             >
                 {title}
