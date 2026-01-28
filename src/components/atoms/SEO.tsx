@@ -11,7 +11,7 @@ interface SEOProps {
 const SEO = ({ title, description, keywords, image, url }: SEOProps) => {
     const siteTitle = "Dovey's Nail Lounge | Luxury Nail Spa in Abuja";
     const defaultKeywords = "doveysnaillounge, dovey lounge, nails in dawaki, nail salon abuja, beauty spa abuja, manicure abuja, pedicure dawaki";
-    const fullTitle = `${title} | Dovey's Nail Lounge`;
+    const fullTitle = title ? `${title} | Dovey's Nail Lounge` : siteTitle;
     const metaImage = image || '/logo.png'; // Assuming logo or a default OG image exists, update path as needed
     const metaUrl = url || 'https://doveylounge.com'; // Replace with actual domain
 
