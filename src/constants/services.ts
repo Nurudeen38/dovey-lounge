@@ -35,10 +35,10 @@ export const NAIL_SERVICES: Service[] = [
     { name: 'Acrylic Nails', description: 'Long-lasting, durable nail extensions', price: 'From ₦15,000', image: acrylicNailsImg },
     { name: 'Nail Art', description: 'Custom artistic designs', price: 'From ₦5,000', image: nailArtImg },
     { name: 'Polish Nails', description: 'Classic manicure finish', price: 'From ₦3,000', image: polishImg },
-    { name: 'French Tips', description: 'Timeless elegance', price: 'From ₦8,000', image: frenchTipsImg },
-    { name: 'Gel X Nails', description: 'Soft gel extensions', price: 'From ₦18,000', image: gelXImg },
-    { name: 'Press-on Nails', description: 'Quick & beautiful', price: 'From ₦10,000', image: pressOnImg },
-    { name: 'Pedicure', description: 'Complete foot care', price: 'From ₦8,000', image: pedicureImg },
+    { name: 'French Tips', description: 'Timeless elegance', price: 'From ₦10,000', image: frenchTipsImg },
+    { name: 'Gel X Nails', description: 'Soft gel extensions', price: 'From ₦15,000', image: gelXImg },
+    { name: 'Press-on Nails', description: 'Quick & beautiful', price: 'From ₦8,000', image: pressOnImg },
+    { name: 'Pedicure', description: 'Complete foot care', price: 'From ₦10,000', image: pedicureImg },
     { name: 'Manicure', description: 'Hand & nail perfection', price: 'From ₦5,000', image: manicureImg },
 ];
 
