@@ -23,7 +23,7 @@ const About = () => {
                                 <SectionTitle
                                     subtitle="ABOUT US"
                                     title="Our Story"
-                                    description="Dovey Nails Lounge was born from a passion for beauty and a commitment to excellence. What started as a small nail studio has grown into Lagos's premier destination for nail artistry and beauty services."
+                                    description="Dovey’s Nail Lounge was born from a passion for beauty, art, and a commitment to excellence. What started as a small nail studio in what can only be described as a cubicle has now grown into Abuja’s premier destination for nail artistry and beauty services."
                                     light
                                     align="left"
                                 />

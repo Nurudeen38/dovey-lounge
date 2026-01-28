@@ -5,8 +5,13 @@ import AOS from 'aos';
 import { ROUTES } from '@/routes';
 import { SERVICE_CATEGORIES } from '@/constants';
 import { SectionTitle, ServiceCard } from '@/components';
+import { useBooking } from '@/context/BookingContext';
+import { Fab, Fade } from '@mui/material';
+import { BookmarkAdd } from '@mui/icons-material';
 
 const Services = () => {
+    const { toggleService, isServiceSelected, selectedServices } = useBooking();
+
     useEffect(() => {
         AOS.init({ duration: 800, once: true, easing: 'ease-out-cubic' });
         window.scrollTo(0, 0);
@@ -45,7 +50,13 @@ const Services = () => {
                         <Grid container spacing={3}>
                             {category.services.map((service, index) => (
                                 <Grid size={{ xs: 12, sm: 6, md: 4 }} key={service.name}>
-                                    <ServiceCard {...service} index={index} showPrice />
+                                    <ServiceCard
+                                        {...service}
+                                        index={index}
+                                        showPrice
+                                        isSelected={isServiceSelected(service.name)}
+                                        onToggle={() => toggleService(service)}
+                                    />
                                 </Grid>
                             ))}
                         </Grid>
@@ -76,7 +87,28 @@ const Services = () => {
                     </Button>
                 </Container>
             </Box>
-        </Box>
+
+            {/* Floating Booking Button */}
+            <Fade in={selectedServices.length > 0}>
+                <Fab
+                    variant="extended"
+                    color="secondary"
+                    component={Link}
+                    to={ROUTES.CONTACT}
+                    sx={{
+                        position: 'fixed',
+                        bottom: 32,
+                        right: 32,
+                        zIndex: 1000,
+                        fontWeight: 600,
+                        boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+                    }}
+                >
+                    <BookmarkAdd sx={{ mr: 1 }} />
+                    Book Selected ({selectedServices.length})
+                </Fab>
+            </Fade>
+        </Box >
     );
 };
 

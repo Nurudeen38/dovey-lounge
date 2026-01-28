@@ -27,6 +27,8 @@ import {
     FORMSPREE_FORM_ID,
 } from '@/constants';
 import { SectionTitle, ContactInfoItem } from '@/components';
+import { useBooking } from '@/context/BookingContext';
+import { Chip } from '@mui/material';
 
 // TikTok icon as SVG since MUI doesn't have it
 const TikTokIcon = () => (
@@ -58,6 +60,18 @@ const Contact = () => {
         severity: 'success' as 'success' | 'error',
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const { selectedServices, clearServices, removeService } = useBooking();
+
+    useEffect(() => {
+        if (selectedServices.length > 0) {
+            const servicesList = selectedServices.map(s => s.name).join(', ');
+            setFormData(prev => ({
+                ...prev,
+                service: servicesList,
+                message: prev.message || `I would like to book an appointment for: ${servicesList}.`
+            }));
+        }
+    }, [selectedServices]);
 
     useEffect(() => {
         AOS.init({ duration: 800, once: true, easing: 'ease-out-cubic' });
@@ -85,6 +99,7 @@ const Contact = () => {
                     severity: 'success',
                 });
                 setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+                clearServices();
             } else {
                 throw new Error('Form submission failed');
             }
@@ -129,6 +144,26 @@ const Contact = () => {
                                 <Typography variant="h3" sx={{ mb: 4 }}>
                                     Book Your Appointment
                                 </Typography>
+
+                                {selectedServices.length > 0 && (
+                                    <Box sx={{ mb: 4, p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
+                                        <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 600 }}>
+                                            Selected Services:
+                                        </Typography>
+                                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                                            {selectedServices.map((service) => (
+                                                <Chip
+                                                    key={service.name}
+                                                    label={service.name}
+                                                    onDelete={() => removeService(service.name)}
+                                                    color="secondary"
+                                                    size="small"
+                                                />
+                                            ))}
+                                        </Box>
+                                    </Box>
+                                )}
+
                                 <Box component="form" onSubmit={handleSubmit}>
                                     <Grid container spacing={3}>
                                         <Grid size={{ xs: 12, sm: 6 }}>

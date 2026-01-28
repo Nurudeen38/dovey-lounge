@@ -6,7 +6,7 @@ interface GalleryCardProps extends GalleryItem {
     index?: number;
 }
 
-const GalleryCard = ({ title, color, index = 0 }: GalleryCardProps) => {
+const GalleryCard = ({ title, color, imageUrl, index = 0 }: GalleryCardProps) => {
     const isDark = color === '#1a1a1a';
 
     return (
@@ -17,6 +17,9 @@ const GalleryCard = ({ title, color, index = 0 }: GalleryCardProps) => {
             sx={{
                 aspectRatio: '1/1',
                 bgcolor: color,
+                backgroundImage: imageUrl ? `url(${imageUrl})` : 'none',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -34,13 +37,24 @@ const GalleryCard = ({ title, color, index = 0 }: GalleryCardProps) => {
         >
             <Typography
                 sx={{
-                    color: isDark ? '#FAF9F6' : '#1a1a1a',
+                    color: imageUrl ? '#FAF9F6' : (isDark ? '#FAF9F6' : '#1a1a1a'),
                     fontFamily: '"Cormorant Garamond", serif',
                     fontSize: '1.5rem',
+                    zIndex: 1,
+                    textShadow: imageUrl ? '0 2px 4px rgba(0,0,0,0.5)' : 'none',
                 }}
             >
                 {title}
             </Typography>
+            {imageUrl && (
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        inset: 0,
+                        bgcolor: 'rgba(0,0,0,0.2)', // Light text overlay
+                    }}
+                />
+            )}
             <Box
                 className="overlay"
                 sx={{
