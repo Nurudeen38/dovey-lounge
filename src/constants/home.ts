@@ -11,5 +11,4 @@ export const HERO_SLIDES: HeroSlideMedia[] = [
     { type: 'image', src: '/assets/guest_reception.jpg' },
     { type: 'image', src: '/assets/saloon_entrance.jpg' },
     { type: 'image', src: '/assets/nail_parlour.jpg' },
-
 ];

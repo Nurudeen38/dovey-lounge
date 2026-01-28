@@ -74,6 +74,7 @@ const Home = () => {
                                         lineHeight: 1.8,
                                         fontSize: '1.1rem',
                                         textShadow: '0 1px 2px rgba(0,0,0,0.8)',
+                                        display: { xs: 'none', md: 'block' },
                                     }}
                                 >
                                     Located at Dawaki, Abuja, Dovey's Nail Lounge is the leading destination for exquisite and classy nail designs that will give you that timeless look. If you are looking for the best nail techs in Abuja, then you have come to the right place.
@@ -87,9 +88,25 @@ const Home = () => {
                                         lineHeight: 1.8,
                                         fontSize: '1.1rem',
                                         textShadow: '0 1px 2px rgba(0,0,0,0.8)',
+                                        display: { xs: 'none', md: 'block' },
                                     }}
                                 >
                                     We also offer other beauty services such as lash extensions, manicure and pedicure treatments, piercings, tattoos, makeup, etc, making us your one-stop shop for everything beauty in Abuja.
+                                </Typography>
+
+                                <Typography
+                                    variant="body1"
+                                    sx={{
+                                        color: 'grey.300',
+                                        mb: 4,
+                                        maxWidth: 600,
+                                        lineHeight: 1.8,
+                                        fontSize: '1.1rem',
+                                        textShadow: '0 1px 2px rgba(0,0,0,0.8)',
+                                        display: { xs: 'block', md: 'none' },
+                                    }}
+                                >
+                                    Located at Dawaki, Abuja, Dovey's Nail Lounge is the leading destination for exquisite and classy nail designs that will give you that timeless look. If you are looking for the best nail and lash techs in Abuja, then you have come to the right place.
                                 </Typography>
                                 <Stack direction="row" spacing={2}>
                                     <Button
