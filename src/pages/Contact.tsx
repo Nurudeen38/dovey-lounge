@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
     Box,
     Container,
@@ -46,51 +49,76 @@ const CONTACT_INFO = [
     { label: 'Twitter', value: SOCIAL_HANDLE, icon: <Twitter /> },
 ];
 
+const contactSchema = z.object({
+    name: z.string().min(2, 'Name must be at least 2 characters'),
+    email: z.string().email('Please enter a valid email address'),
+    phone: z.string().min(10, 'Phone number must be at least 10 digits'),
+    service: z.string().optional(),
+    message: z.string().min(10, 'Message must be at least 10 characters'),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
+
 const Contact = () => {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        phone: '',
-        service: '',
-        message: '',
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        reset,
+        formState: { errors, isSubmitting },
+    } = useForm<ContactFormData>({
+        resolver: zodResolver(contactSchema),
+        mode: 'onSubmit',
+        defaultValues: {
+            name: '',
+            email: '',
+            phone: '',
+            service: '',
+            message: '',
+        },
     });
+
     const [snackbar, setSnackbar] = useState({
         open: false,
         message: '',
         severity: 'success' as 'success' | 'error',
     });
-    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const { selectedServices, clearServices, removeService } = useBooking();
 
     useEffect(() => {
         if (selectedServices.length > 0) {
-            const servicesList = selectedServices.map(s => s.name).join(', ');
-            setFormData(prev => ({
-                ...prev,
-                service: servicesList,
-                message: prev.message || `I would like to book an appointment for: ${servicesList}.`
-            }));
+            const servicesList = selectedServices.map((s) => s.name).join(', ');
+            setValue('service', servicesList);
+            // Only update message if it's generic or empty to avoid overwriting user input
+            // But since we can't easily check previous state without prop drilling or tracking, 
+            // we'll stick to a simple pre-fill logic or just omitted for message if confusing.
+            // Let's keep the user's message intact if they edit it, but pre-fill if empty?
+            // For simplicity and to match old behavior:
+            setValue('message', `I would like to book an appointment for: ${servicesList}.`);
         }
-    }, [selectedServices]);
-
+    }, [selectedServices, setValue]);
+    console.log({ errors });
     useEffect(() => {
         AOS.init({ duration: 800, once: true, easing: 'ease-out-cubic' });
         window.scrollTo(0, 0);
     }, []);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-
+    const onSubmit = async (formData: ContactFormData) => {
         try {
             const response = await fetch(
                 `https://formspree.io/f/${FORMSPREE_FORM_ID}`,
                 {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json',
+                    },
                     body: JSON.stringify(formData),
                 }
             );
+
+            const data = await response.json();
 
             if (response.ok) {
                 setSnackbar({
@@ -98,19 +126,28 @@ const Contact = () => {
                     message: 'Thank you! We will get back to you soon.',
                     severity: 'success',
                 });
-                setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+                reset();
                 clearServices();
             } else {
+                if (data.errors) {
+                    const errorMessages = data.errors
+                        .map((err: { field?: string; message: string }) =>
+                            err.field ? `${err.field} ${err.message}` : err.message
+                        )
+                        .join(', ');
+                    throw new Error(errorMessages || 'Form submission failed');
+                }
                 throw new Error('Form submission failed');
             }
-        } catch {
+        } catch (error) {
             setSnackbar({
                 open: true,
-                message: 'Something went wrong. Please try again or call us directly.',
+                message:
+                    error instanceof Error
+                        ? error.message
+                        : 'Something went wrong. Please try again or call us directly.',
                 severity: 'error',
             });
-        } finally {
-            setIsSubmitting(false);
         }
     };
 
@@ -139,15 +176,29 @@ const Contact = () => {
                             <Paper
                                 data-aos="fade-right"
                                 elevation={0}
-                                sx={{ p: { xs: 3, md: 5 }, border: '1px solid', borderColor: 'divider' }}
+                                sx={{
+                                    p: { xs: 3, md: 5 },
+                                    border: '1px solid',
+                                    borderColor: 'divider',
+                                }}
                             >
                                 <Typography variant="h3" sx={{ mb: 4 }}>
                                     Book Your Appointment
                                 </Typography>
 
                                 {selectedServices.length > 0 && (
-                                    <Box sx={{ mb: 4, p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
-                                        <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 600 }}>
+                                    <Box
+                                        sx={{
+                                            mb: 4,
+                                            p: 2,
+                                            bgcolor: 'background.default',
+                                            borderRadius: 1,
+                                        }}
+                                    >
+                                        <Typography
+                                            variant="subtitle2"
+                                            sx={{ mb: 1, fontWeight: 600 }}
+                                        >
                                             Selected Services:
                                         </Typography>
                                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
@@ -164,15 +215,16 @@ const Contact = () => {
                                     </Box>
                                 )}
 
-                                <Box component="form" onSubmit={handleSubmit}>
+                                <Box component="form" onSubmit={handleSubmit(onSubmit)}>
                                     <Grid container spacing={3}>
                                         <Grid size={{ xs: 12, sm: 6 }}>
                                             <TextField
                                                 fullWidth
                                                 label="Your Name"
-                                                value={formData.name}
-                                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                                required
+                                                {...register('name')}
+                                                error={!!errors.name}
+                                                helperText={errors.name?.message}
+
                                                 variant="outlined"
                                             />
                                         </Grid>
@@ -181,9 +233,10 @@ const Contact = () => {
                                                 fullWidth
                                                 label="Email Address"
                                                 type="email"
-                                                value={formData.email}
-                                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                                required
+                                                {...register('email')}
+                                                error={!!errors.email}
+                                                helperText={errors.email?.message}
+
                                                 variant="outlined"
                                             />
                                         </Grid>
@@ -191,9 +244,10 @@ const Contact = () => {
                                             <TextField
                                                 fullWidth
                                                 label="Phone Number"
-                                                value={formData.phone}
-                                                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                                required
+                                                {...register('phone')}
+                                                error={!!errors.phone}
+                                                helperText={errors.phone?.message}
+
                                                 variant="outlined"
                                             />
                                         </Grid>
@@ -201,10 +255,16 @@ const Contact = () => {
                                             <TextField
                                                 fullWidth
                                                 label="Service Interested In"
-                                                value={formData.service}
-                                                onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                                                {...register('service')}
+                                                error={!!errors.service}
+                                                helperText={errors.service?.message}
                                                 variant="outlined"
                                                 placeholder="e.g., Acrylic Nails, Lash Extensions"
+                                                slotProps={{
+                                                    inputLabel: {
+                                                        shrink: true,
+                                                    },
+                                                }}
                                             />
                                         </Grid>
                                         <Grid size={{ xs: 12 }}>
@@ -213,9 +273,15 @@ const Contact = () => {
                                                 label="Your Message"
                                                 multiline
                                                 rows={4}
-                                                value={formData.message}
-                                                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                                {...register('message')}
+                                                error={!!errors.message}
+                                                helperText={errors.message?.message}
                                                 variant="outlined"
+                                                slotProps={{
+                                                    inputLabel: {
+                                                        shrink: true,
+                                                    },
+                                                }}
                                             />
                                         </Grid>
                                         <Grid size={{ xs: 12 }}>

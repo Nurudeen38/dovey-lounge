@@ -8,6 +8,9 @@ import pressOnImg from '@/assets/images/press_on_nails.jpg';
 import makeupImg from '@/assets/images/makeup.jpeg';
 import tattooImg from '@/assets/images/tatoo.PNG';
 import piercingImg from '@/assets/images/piercing.jpeg';
+import browWorkImg from '@/assets/images/brow_work.PNG';
+import lashExtImg from '@/assets/images/lash_extension.jpeg';
+import lipBlushImg from '@/assets/images/lip_blush.WEBP';
 
 
 // Gallery data
@@ -40,10 +43,10 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     { id: 4, category: 'nails', title: 'Gel X Design', color: '#E6E6FA', imageUrl: gelXImg },
     { id: 5, category: 'nails', title: 'Chrome Nails', color: '#C9A962', imageUrl: polishImg },
     { id: 6, category: 'nails', title: 'Ombre Set', color: '#FFE4E1', imageUrl: pressOnImg },
-    { id: 7, category: 'beauty', title: 'Lash Extensions', color: '#2D5A4A' },
-    { id: 8, category: 'beauty', title: 'Brow Work', color: '#8B7355' },
+    { id: 7, category: 'beauty', title: 'Lash Extensions', color: '#2D5A4A', imageUrl: lashExtImg },
+    { id: 8, category: 'beauty', title: 'Brow Work', color: '#8B7355', imageUrl: browWorkImg },
     { id: 9, category: 'beauty', title: 'Makeup Look', color: '#CD853F', imageUrl: makeupImg },
-    { id: 10, category: 'beauty', title: 'Lip Blush', color: '#DB7093' },
+    { id: 10, category: 'beauty', title: 'Lip Blush', color: '#DB7093', imageUrl: lipBlushImg },
     { id: 11, category: 'bodyart', title: 'Tattoo Art', color: '#1a1a1a', imageUrl: tattooImg },
     { id: 12, category: 'bodyart', title: 'Piercing', color: '#708090', imageUrl: piercingImg },
 ];

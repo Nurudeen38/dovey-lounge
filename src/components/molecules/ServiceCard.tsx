@@ -14,15 +14,12 @@ const ServiceCard = ({
     description,
     price,
     image,
-    index = 0,
     showPrice = false,
     isSelected = false,
     onToggle
 }: ServiceCardProps) => {
     return (
         <Paper
-            data-aos="fade-up"
-            data-aos-delay={index * 50}
             elevation={0}
             sx={{
                 p: 0, // Remove padding from parent to let image fill width

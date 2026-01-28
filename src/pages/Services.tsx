@@ -50,13 +50,15 @@ const Services = () => {
                         <Grid container spacing={3}>
                             {category.services.map((service, index) => (
                                 <Grid size={{ xs: 12, sm: 6, md: 4 }} key={service.name}>
-                                    <ServiceCard
-                                        {...service}
-                                        index={index}
-                                        showPrice
-                                        isSelected={isServiceSelected(service.name)}
-                                        onToggle={() => toggleService(service)}
-                                    />
+                                    <Box data-aos="fade-up" data-aos-delay={index * 50} sx={{ height: '100%' }}>
+                                        <ServiceCard
+                                            {...service}
+                                            index={index}
+                                            showPrice
+                                            isSelected={isServiceSelected(service.name)}
+                                            onToggle={() => toggleService(service)}
+                                        />
+                                    </Box>
                                 </Grid>
                             ))}
                         </Grid>

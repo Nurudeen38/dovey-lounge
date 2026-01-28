@@ -15,11 +15,15 @@ import nailArtImg from '@/assets/images/nail_art_nails.jpeg';
 import polishImg from '@/assets/images/polish_nails.jpg';
 import pressOnImg from '@/assets/images/press_on_nails.jpg';
 import pedicureImg from '@/assets/images/pedicure_nails.jpg';
+
 import manicureImg from '@/assets/images/manicure_nails.jpeg';
 import makeupImg from '@/assets/images/makeup.jpeg';
 import geleImg from '@/assets/images/gele.jpeg';
 import tattooImg from '@/assets/images/tatoo.PNG';
 import piercingImg from '@/assets/images/piercing.jpeg';
+import browWorkImg from '@/assets/images/brow_work.PNG';
+import lashExtImg from '@/assets/images/lash_extension.jpeg';
+import lipBlushImg from '@/assets/images/lip_blush.WEBP';
 
 export interface ServiceCategory {
     title: string;
@@ -39,9 +43,9 @@ export const NAIL_SERVICES: Service[] = [
 ];
 
 export const BEAUTY_SERVICES: Service[] = [
-    { name: 'Lash Extensions', description: 'Fuller, longer lashes', price: 'From ₦20,000' },
-    { name: 'Permanent Brows', description: 'Defined, lasting brows', price: 'From ₦50,000' },
-    { name: 'Lip Blushing', description: 'Natural lip enhancement', price: 'From ₦45,000' },
+    { name: 'Lash Extensions', description: 'Fuller, longer lashes', price: 'From ₦20,000', image: lashExtImg },
+    { name: 'Permanent Brows', description: 'Defined, lasting brows', price: 'From ₦50,000', image: browWorkImg },
+    { name: 'Lip Blushing', description: 'Natural lip enhancement', price: 'From ₦45,000', image: lipBlushImg },
     { name: 'Makeup', description: 'Professional artistry', price: 'From ₦25,000', image: makeupImg },
     { name: 'Gele Tying', description: 'Traditional headwrap styling', price: 'From ₦10,000', image: geleImg },
 ];
