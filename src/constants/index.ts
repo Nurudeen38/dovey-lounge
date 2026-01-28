@@ -4,3 +4,5 @@ export * from './contact';
 export * from './stats';
 export * from './gallery';
 export * from './values';
+export * from './home';
+

@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import AOS from 'aos';
 import { ROUTES } from '@/routes';
 import { HOME_PREVIEW_SERVICES, BUSINESS_STATS } from '@/constants';
-import { SectionTitle, ServiceCard, StatItem, SEO } from '@/components';
+import { SectionTitle, ServiceCard, StatItem, SEO, HeroBackground } from '@/components';
+import { HERO_SLIDES } from '@/constants/home';
+
 
 const Home = () => {
     useEffect(() => {
@@ -28,28 +30,50 @@ const Home = () => {
                     display: 'flex',
                     alignItems: 'center',
                     pt: { xs: 10, md: 0 },
+                    position: 'relative',
+                    overflow: 'hidden',
                 }}
             >
-                <Container maxWidth="lg">
+                <HeroBackground items={HERO_SLIDES} />
+
+                <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
                     <Grid container spacing={6} alignItems="center">
-                        <Grid size={{ xs: 12, md: 6 }}>
+                        <Grid size={{ xs: 12, md: 8 }}>
                             <Box data-aos="fade-up">
                                 <Typography
                                     variant="h6"
-                                    sx={{ color: 'secondary.main', mb: 2, fontWeight: 400 }}
+                                    sx={{
+                                        color: 'secondary.main',
+                                        mb: 2,
+                                        fontWeight: 700,
+                                        letterSpacing: 2,
+                                        textTransform: 'uppercase',
+                                        textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+                                    }}
                                 >
                                     Dovey's Nail Lounge
                                 </Typography>
-                                <Typography variant="h1" sx={{ mb: 3, color: 'text.primary' }}>
+                                <Typography
+                                    variant="h1"
+                                    sx={{
+                                        mb: 3,
+                                        color: 'common.white',
+                                        fontSize: { xs: '2.5rem', md: '4.5rem' },
+                                        fontWeight: 800,
+                                        textShadow: '0 2px 10px rgba(0,0,0,0.5)',
+                                    }}
+                                >
                                     Elegance at Your Fingertips
                                 </Typography>
                                 <Typography
                                     variant="body1"
                                     sx={{
-                                        color: 'text.secondary',
+                                        color: 'grey.300',
                                         mb: 4,
-                                        maxWidth: 450,
+                                        maxWidth: 600,
                                         lineHeight: 1.8,
+                                        fontSize: '1.1rem',
+                                        textShadow: '0 1px 2px rgba(0,0,0,0.8)',
                                     }}
                                 >
                                     Located at Dawaki, Abuja, Dovey's Nail Lounge is the leading destination for exquisite and classy nail designs that will give you that timeless look. If you are looking for the best nail techs in Abuja, then you have come to the right place.
@@ -57,10 +81,12 @@ const Home = () => {
                                 <Typography
                                     variant="body1"
                                     sx={{
-                                        color: 'text.secondary',
+                                        color: 'grey.300',
                                         mb: 4,
-                                        maxWidth: 450,
+                                        maxWidth: 600,
                                         lineHeight: 1.8,
+                                        fontSize: '1.1rem',
+                                        textShadow: '0 1px 2px rgba(0,0,0,0.8)',
                                     }}
                                 >
                                     We also offer other beauty services such as lash extensions, manicure and pedicure treatments, piercings, tattoos, makeup, etc, making us your one-stop shop for everything beauty in Abuja.
@@ -81,8 +107,8 @@ const Home = () => {
                                         variant="outlined"
                                         size="large"
                                         sx={{
-                                            borderColor: 'text.primary',
-                                            color: 'text.primary',
+                                            borderColor: 'common.white',
+                                            color: 'common.white',
                                             '&:hover': {
                                                 borderColor: 'secondary.main',
                                                 color: 'secondary.main',
@@ -93,38 +119,6 @@ const Home = () => {
                                         Book Appointment
                                     </Button>
                                 </Stack>
-                            </Box>
-                        </Grid>
-                        <Grid size={{ xs: 12, md: 6 }}>
-                            <Box
-                                data-aos="fade-left"
-                                data-aos-delay="200"
-                                sx={{
-                                    position: 'relative',
-                                    '&::before': {
-                                        content: '""',
-                                        position: 'absolute',
-                                        top: -20,
-                                        right: -20,
-                                        width: '100%',
-                                        height: '100%',
-                                        border: '2px solid',
-                                        borderColor: 'secondary.main',
-                                        zIndex: 0,
-                                    },
-                                }}
-                            >
-                                <Box
-                                    component="img"
-                                    src="/hero-nails.png"
-                                    alt="Elegant manicured hands"
-                                    sx={{
-                                        width: '100%',
-                                        height: 'auto',
-                                        position: 'relative',
-                                        zIndex: 1,
-                                    }}
-                                />
                             </Box>
                         </Grid>
                     </Grid>
