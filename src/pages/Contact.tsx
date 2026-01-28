@@ -27,7 +27,7 @@ import {
     PHONE,
     SOCIAL_HANDLE,
     BUSINESS_HOURS,
-    FORMSPREE_FORM_ID,
+
 } from '@/constants';
 import { SectionTitle, ContactInfoItem } from '@/components';
 import { useBooking } from '@/context/BookingContext';
@@ -90,64 +90,47 @@ const Contact = () => {
         if (selectedServices.length > 0) {
             const servicesList = selectedServices.map((s) => s.name).join(', ');
             setValue('service', servicesList);
-            // Only update message if it's generic or empty to avoid overwriting user input
-            // But since we can't easily check previous state without prop drilling or tracking, 
-            // we'll stick to a simple pre-fill logic or just omitted for message if confusing.
-            // Let's keep the user's message intact if they edit it, but pre-fill if empty?
-            // For simplicity and to match old behavior:
             setValue('message', `I would like to book an appointment for: ${servicesList}.`);
         }
     }, [selectedServices, setValue]);
-    console.log({ errors });
+
     useEffect(() => {
         AOS.init({ duration: 800, once: true, easing: 'ease-out-cubic' });
         window.scrollTo(0, 0);
     }, []);
 
-    const onSubmit = async (formData: ContactFormData) => {
+    const onSubmit = (formData: ContactFormData) => {
         try {
-            const response = await fetch(
-                `https://formspree.io/f/${FORMSPREE_FORM_ID}`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Accept: 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                }
-            );
 
-            const data = await response.json();
+            // Format the message for WhatsApp
+            const messageText = `Hello, I would like to make an enquiry/booking.
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Service: ${formData.service || 'Not specified'}
+Message: ${formData.message || 'No additional message'}`;
 
-            if (response.ok) {
-                setSnackbar({
-                    open: true,
-                    message: 'Thank you! We will get back to you soon.',
-                    severity: 'success',
-                });
-                reset();
-                clearServices();
-            } else {
-                if (data.errors) {
-                    const errorMessages = data.errors
-                        .map((err: { field?: string; message: string }) =>
-                            err.field ? `${err.field} ${err.message}` : err.message
-                        )
-                        .join(', ');
-                    throw new Error(errorMessages || 'Form submission failed');
-                }
-                throw new Error('Form submission failed');
-            }
+            const encodedMessage = encodeURIComponent(messageText);
+            const whatsappUrl = `https://wa.me/2348152543551?text=${encodedMessage}`;
+
+            // Open WhatsApp in a new tab
+            window.open(whatsappUrl, '_blank');
+
+            setSnackbar({
+                open: true,
+                message: 'Redirecting to WhatsApp to complete your booking...',
+                severity: 'success',
+            });
+
+            reset();
+            clearServices();
         } catch (error) {
             setSnackbar({
                 open: true,
-                message:
-                    error instanceof Error
-                        ? error.message
-                        : 'Something went wrong. Please try again or call us directly.',
+                message: 'Something went wrong. Please try again or call us directly.',
                 severity: 'error',
             });
+        } finally {
         }
     };
 
