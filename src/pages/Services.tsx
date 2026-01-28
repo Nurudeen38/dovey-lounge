@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import AOS from 'aos';
 import { ROUTES } from '@/routes';
 import { SERVICE_CATEGORIES } from '@/constants';
-import { SectionTitle, ServiceCard } from '@/components';
+import { SectionTitle, ServiceCard, SEO } from '@/components';
 import { useBooking } from '@/context/BookingContext';
 import { Fab, Fade } from '@mui/material';
 import { BookmarkAdd } from '@mui/icons-material';
@@ -19,6 +19,10 @@ const Services = () => {
 
     return (
         <Box sx={{ pt: { xs: 12, md: 14 } }}>
+            <SEO
+                title="Services"
+                description="Explore our wide range of beauty services at Dovey's Nail Lounge: Acrylic Nails, Gel Polish, Pedicures, Manicures, Lash Extensions, and Permanent Makeup."
+            />
             {/* Hero */}
             <Box sx={{ py: 8, bgcolor: '#1a1a1a', color: '#FAF9F6' }}>
                 <Container maxWidth="lg">

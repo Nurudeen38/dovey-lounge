@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import AOS from 'aos';
 import { ROUTES } from '@/routes';
 import { BUSINESS_STATS, COMPANY_VALUES } from '@/constants';
-import { SectionTitle, StatItem } from '@/components';
+import { SectionTitle, StatItem, SEO } from '@/components';
 
 const About = () => {
     useEffect(() => {
@@ -14,6 +14,10 @@ const About = () => {
 
     return (
         <Box sx={{ pt: { xs: 12, md: 14 } }}>
+            <SEO
+                title="About Us"
+                description="Learn about Dovey's Nail Lounge in Abuja. Our mission is to provide an unparalleled beauty experience with a focus on hygiene, artistry, and client satisfaction."
+            />
             {/* Hero */}
             <Box sx={{ py: 10, bgcolor: '#1a1a1a', color: '#FAF9F6' }}>
                 <Container maxWidth="lg">

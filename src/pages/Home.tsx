@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import AOS from 'aos';
 import { ROUTES } from '@/routes';
 import { HOME_PREVIEW_SERVICES, BUSINESS_STATS } from '@/constants';
-import { SectionTitle, ServiceCard, StatItem } from '@/components';
+import { SectionTitle, ServiceCard, StatItem, SEO } from '@/components';
 
 const Home = () => {
     useEffect(() => {
@@ -17,6 +17,10 @@ const Home = () => {
 
     return (
         <>
+            <SEO
+                title="Home"
+                description="Welcome to Dovey's Nail Lounge, the premier luxury nail spa in Dawaki, Abuja. We offer exquisite manicures, pedicures, lash extensions, and more."
+            />
             {/* Hero Section */}
             <Box
                 sx={{

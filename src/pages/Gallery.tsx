@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Box, Container, Typography, Grid, Tabs, Tab } from '@mui/material';
 import AOS from 'aos';
 import { GALLERY_ITEMS, GALLERY_CATEGORIES, SOCIAL_HANDLE } from '@/constants';
-import { SectionTitle, GalleryCard } from '@/components';
+import { SectionTitle, GalleryCard, SEO } from '@/components';
 
 const Gallery = () => {
     const [activeTab, setActiveTab] = useState('all');
@@ -19,6 +19,10 @@ const Gallery = () => {
 
     return (
         <Box sx={{ pt: { xs: 12, md: 14 } }}>
+            <SEO
+                title="Gallery"
+                description="View our portfolio of stunning nail designs and beauty transformations. See why Dovey's Nail Lounge is the top choice for nail art in Abuja."
+            />
             {/* Hero */}
             <Box sx={{ py: 8, bgcolor: '#1a1a1a', color: '#FAF9F6' }}>
                 <Container maxWidth="lg">

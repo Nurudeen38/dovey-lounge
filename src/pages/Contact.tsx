@@ -29,7 +29,7 @@ import {
     BUSINESS_HOURS,
 
 } from '@/constants';
-import { SectionTitle, ContactInfoItem } from '@/components';
+import { SectionTitle, ContactInfoItem, SEO } from '@/components';
 import { useBooking } from '@/context/BookingContext';
 import { Chip } from '@mui/material';
 
@@ -136,6 +136,10 @@ Message: ${formData.message || 'No additional message'}`;
 
     return (
         <Box sx={{ pt: { xs: 12, md: 14 } }}>
+            <SEO
+                title="Contact Us"
+                description="Book your appointment at Dovey's Nail Lounge via WhatsApp. Locate us in Dawaki, Abuja for premium nail and beauty services."
+            />
             {/* Hero */}
             <Box sx={{ py: 8, bgcolor: '#1a1a1a', color: '#FAF9F6' }}>
                 <Container maxWidth="lg">
