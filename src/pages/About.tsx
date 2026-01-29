@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { Box, Container, Typography, Button, Grid, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 import AOS from 'aos';
-import { ROUTES } from '@/routes';
-import { BUSINESS_STATS, COMPANY_VALUES } from '@/constants';
+import { ROUTES } from '@/constants';
+import { BUSINESS_STATS, COMPANY_VALUES, ABOUT_CONTENT, PAGE_META } from '@/constants';
 import { SectionTitle, StatItem, SEO } from '@/components';
 
 const About = () => {
@@ -15,8 +15,8 @@ const About = () => {
     return (
         <Box sx={{ pt: { xs: 12, md: 14 } }}>
             <SEO
-                title="About Us"
-                description="Learn about Dovey's Nail Lounge in Abuja. Our mission is to provide an unparalleled beauty experience with a focus on hygiene, artistry, and client satisfaction."
+                title={PAGE_META.ABOUT.title}
+                description={PAGE_META.ABOUT.description}
             />
             {/* Hero */}
             <Box sx={{ py: 10, bgcolor: '#1a1a1a', color: '#FAF9F6' }}>
@@ -25,9 +25,9 @@ const About = () => {
                         <Grid size={{ xs: 12, md: 6 }}>
                             <Box data-aos="fade-right">
                                 <SectionTitle
-                                    subtitle="ABOUT US"
-                                    title="Our Story"
-                                    description="Dovey’s Nail Lounge was born from a passion for beauty, art, and a commitment to excellence. What started as a small nail studio in what can only be described as a cubicle has now grown into Abuja’s premier destination for nail artistry and beauty services."
+                                    subtitle={ABOUT_CONTENT.HERO.SUBTITLE}
+                                    title={ABOUT_CONTENT.HERO.TITLE}
+                                    description={ABOUT_CONTENT.HERO.DESCRIPTION}
                                     light
                                     align="left"
                                 />
@@ -51,9 +51,9 @@ const About = () => {
                         <Grid size={{ xs: 12, md: 6 }}>
                             <Box data-aos="fade-right">
                                 <SectionTitle
-                                    subtitle="OUR MISSION"
-                                    title="Crafting Confidence, One Nail at a Time"
-                                    description="Our mission is to provide an unparalleled beauty experience that leaves every client feeling confident, pampered, and beautiful. We believe that self-care is not a luxury—it's a necessity."
+                                    subtitle={ABOUT_CONTENT.MISSION.SUBTITLE}
+                                    title={ABOUT_CONTENT.MISSION.TITLE}
+                                    description={ABOUT_CONTENT.MISSION.DESCRIPTION}
                                     align="left"
                                 />
                             </Box>
@@ -97,7 +97,7 @@ const About = () => {
             <Box sx={{ py: 10, bgcolor: 'background.paper' }}>
                 <Container maxWidth="lg">
                     <Box data-aos="fade-up">
-                        <SectionTitle subtitle="OUR VALUES" title="What We Stand For" />
+                        <SectionTitle subtitle={ABOUT_CONTENT.VALUES.SUBTITLE} title={ABOUT_CONTENT.VALUES.TITLE} />
                     </Box>
 
                     <Grid container spacing={4}>
@@ -136,8 +136,8 @@ const About = () => {
             <Box sx={{ py: 10, bgcolor: 'success.main', textAlign: 'center' }}>
                 <Container maxWidth="md">
                     <SectionTitle
-                        title="Experience the Dovey Difference"
-                        description="Visit us today and discover why clients choose Dovey Nails Lounge for their beauty needs."
+                        title={ABOUT_CONTENT.CTA.TITLE}
+                        description={ABOUT_CONTENT.CTA.DESCRIPTION}
                         light
                     />
                     <Button
@@ -151,7 +151,7 @@ const About = () => {
                             '&:hover': { bgcolor: 'secondary.main' },
                         }}
                     >
-                        Book Your Visit
+                        {ABOUT_CONTENT.CTA.BUTTON}
                     </Button>
                 </Container>
             </Box>

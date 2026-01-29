@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Box, Container, Typography, Grid, Tabs, Tab } from '@mui/material';
 import AOS from 'aos';
-import { GALLERY_ITEMS, GALLERY_CATEGORIES, SOCIAL_HANDLE } from '@/constants';
+import { GALLERY_ITEMS, GALLERY_CATEGORIES, SOCIAL_HANDLE, GALLERY_CONTENT, PAGE_META } from '@/constants';
 import { SectionTitle, GalleryCard, SEO } from '@/components';
 
 const Gallery = () => {
@@ -20,17 +20,17 @@ const Gallery = () => {
     return (
         <Box sx={{ pt: { xs: 12, md: 14 } }}>
             <SEO
-                title="Gallery"
-                description="View our portfolio of stunning nail designs and beauty transformations. See why Dovey's Nail Lounge is the top choice for nail art in Abuja."
+                title={PAGE_META.GALLERY.title}
+                description={PAGE_META.GALLERY.description}
             />
             {/* Hero */}
             <Box sx={{ py: 8, bgcolor: '#1a1a1a', color: '#FAF9F6' }}>
                 <Container maxWidth="lg">
                     <Box data-aos="fade-up">
                         <SectionTitle
-                            subtitle="OUR WORK"
-                            title="Gallery"
-                            description="Browse our portfolio of nail designs, beauty transformations, and body art. Each piece showcases our commitment to artistry and client satisfaction."
+                            subtitle={GALLERY_CONTENT.HERO.SUBTITLE}
+                            title={GALLERY_CONTENT.HERO.TITLE}
+                            description={GALLERY_CONTENT.HERO.DESCRIPTION}
                             light
                         />
                     </Box>
@@ -74,7 +74,7 @@ const Gallery = () => {
                     {/* Note */}
                     <Box textAlign="center" mt={8} data-aos="fade-up">
                         <Typography variant="body1" color="text.secondary">
-                            Want to see more? Follow us on Instagram{' '}
+                            {GALLERY_CONTENT.FOOTER_NOTE.TEXT}{' '}
                             <Typography
                                 component="span"
                                 sx={{ color: 'secondary.main', fontWeight: 600 }}

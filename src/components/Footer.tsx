@@ -1,8 +1,7 @@
 import { Box, Container, Typography, Stack, Grid, Divider, IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { LocationOn, Phone, Instagram, Facebook, Twitter } from '@mui/icons-material';
-import { ROUTES } from '@/routes';
-import { ADDRESS, PHONE, BUSINESS_HOURS, BUSINESS_TAGLINE, SOCIAL_LINKS, GOOGLE_MAPS_URL } from '@/constants';
+import { ADDRESS, PHONE, BUSINESS_HOURS, BUSINESS_TAGLINE, SOCIAL_LINKS, GOOGLE_MAPS_URL, ROUTES } from '@/constants';
 
 // TikTok icon as SVG since MUI doesn't have it
 const TikTokIcon = () => (

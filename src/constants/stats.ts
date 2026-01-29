@@ -1,5 +1,3 @@
-// Statistics displayed on Home and About pages
-
 export interface Stat {
     number: string;
     label: string;

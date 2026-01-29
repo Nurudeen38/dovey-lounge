@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
 import { Link, useLocation } from 'react-router-dom';
-import { NAV_LINKS, ROUTES } from '@/routes';
+import { NAV_LINKS, ROUTES } from '@/constants';
 
 const Header = () => {
     const location = useLocation();

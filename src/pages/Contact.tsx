@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
     Box,
@@ -29,17 +28,14 @@ import {
     PHONE,
     SOCIAL_HANDLE,
     SOCIAL_LINKS,
+    CONTACT_CONTENT,
+    PAGE_META,
 } from '@/constants';
 import { SectionTitle, ContactInfoItem, SEO } from '@/components';
 import { useBooking } from '@/context/BookingContext';
 import { Chip } from '@mui/material';
-
-// TikTok icon as SVG since MUI doesn't have it
-const TikTokIcon = () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
-    </svg>
-);
+import { TikTokIcon } from '@/components/icons/TikTokIcon';
+import { contactSchema, type ContactFormData } from '@/lib/validation';
 
 const getSocialUrl = (platform: string) => SOCIAL_LINKS.find(s => s.platform === platform)?.url;
 
@@ -51,16 +47,6 @@ const CONTACT_INFO = [
     { label: 'Facebook', value: SOCIAL_HANDLE, icon: <Facebook />, href: getSocialUrl('Facebook') },
     { label: 'Twitter', value: SOCIAL_HANDLE, icon: <Twitter />, href: getSocialUrl('Twitter') },
 ];
-
-const contactSchema = z.object({
-    name: z.string().min(2, 'Name must be at least 2 characters'),
-    email: z.string().email('Please enter a valid email address'),
-    phone: z.string().min(10, 'Phone number must be at least 10 digits'),
-    service: z.string().optional(),
-    message: z.string().min(10, 'Message must be at least 10 characters'),
-});
-
-type ContactFormData = z.infer<typeof contactSchema>;
 
 const Contact = () => {
     const {
@@ -106,12 +92,12 @@ const Contact = () => {
         try {
 
             // Format the message for WhatsApp
-            const messageText = `Hello, I would like to make an enquiry/booking.
+            const messageText = `${CONTACT_CONTENT.FORM.WHATSAPP_MESSAGE.INTRO}
 Name: ${formData.name}
 Email: ${formData.email}
 Phone: ${formData.phone}
-Service: ${formData.service || 'Not specified'}
-Message: ${formData.message || 'No additional message'}`;
+Service: ${formData.service || CONTACT_CONTENT.FORM.WHATSAPP_MESSAGE.DEFAULT_SERVICE}
+Message: ${formData.message || CONTACT_CONTENT.FORM.WHATSAPP_MESSAGE.DEFAULT_MESSAGE}`;
 
             const encodedMessage = encodeURIComponent(messageText);
             const whatsappUrl = `https://wa.me/2348152543551?text=${encodedMessage}`;
@@ -121,7 +107,7 @@ Message: ${formData.message || 'No additional message'}`;
 
             setSnackbar({
                 open: true,
-                message: 'Redirecting to WhatsApp to complete your booking...',
+                message: CONTACT_CONTENT.FORM.SUCCESS,
                 severity: 'success',
             });
 
@@ -130,7 +116,7 @@ Message: ${formData.message || 'No additional message'}`;
         } catch (error) {
             setSnackbar({
                 open: true,
-                message: 'Something went wrong. Please try again or call us directly.',
+                message: CONTACT_CONTENT.FORM.ERROR,
                 severity: 'error',
             });
         } finally {
@@ -140,17 +126,17 @@ Message: ${formData.message || 'No additional message'}`;
     return (
         <Box sx={{ pt: { xs: 12, md: 14 } }}>
             <SEO
-                title="Contact Us"
-                description="Book your appointment at Dovey's Nail Lounge via WhatsApp. Locate us in Dawaki, Abuja for premium nail and beauty services."
+                title={PAGE_META.CONTACT.title}
+                description={PAGE_META.CONTACT.description}
             />
             {/* Hero */}
             <Box sx={{ py: 8, bgcolor: '#1a1a1a', color: '#FAF9F6' }}>
                 <Container maxWidth="lg">
                     <Box data-aos="fade-up">
                         <SectionTitle
-                            subtitle="GET IN TOUCH"
-                            title="Contact Us"
-                            description="Ready to book your appointment or have questions about our services? We'd love to hear from you."
+                            subtitle={CONTACT_CONTENT.HERO.SUBTITLE}
+                            title={CONTACT_CONTENT.HERO.TITLE}
+                            description={CONTACT_CONTENT.HERO.DESCRIPTION}
                             light
                         />
                     </Box>
@@ -173,7 +159,7 @@ Message: ${formData.message || 'No additional message'}`;
                                 }}
                             >
                                 <Typography variant="h3" sx={{ mb: 4 }}>
-                                    Book Your Appointment
+                                    {CONTACT_CONTENT.FORM.TITLE}
                                 </Typography>
 
                                 {selectedServices.length > 0 && (
@@ -189,7 +175,7 @@ Message: ${formData.message || 'No additional message'}`;
                                             variant="subtitle2"
                                             sx={{ mb: 1, fontWeight: 600 }}
                                         >
-                                            Selected Services:
+                                            {CONTACT_CONTENT.FORM.SELECTED_SERVICES}
                                         </Typography>
                                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                                             {selectedServices.map((service) => (
@@ -210,7 +196,7 @@ Message: ${formData.message || 'No additional message'}`;
                                         <Grid size={{ xs: 12, sm: 6 }}>
                                             <TextField
                                                 fullWidth
-                                                label="Your Name"
+                                                label={CONTACT_CONTENT.FORM.FIELDS.NAME_LABEL}
                                                 {...register('name')}
                                                 error={!!errors.name}
                                                 helperText={errors.name?.message}
@@ -221,7 +207,7 @@ Message: ${formData.message || 'No additional message'}`;
                                         <Grid size={{ xs: 12, sm: 6 }}>
                                             <TextField
                                                 fullWidth
-                                                label="Email Address"
+                                                label={CONTACT_CONTENT.FORM.FIELDS.EMAIL_LABEL}
                                                 type="email"
                                                 {...register('email')}
                                                 error={!!errors.email}
@@ -233,7 +219,7 @@ Message: ${formData.message || 'No additional message'}`;
                                         <Grid size={{ xs: 12, sm: 6 }}>
                                             <TextField
                                                 fullWidth
-                                                label="Phone Number"
+                                                label={CONTACT_CONTENT.FORM.FIELDS.PHONE_LABEL}
                                                 {...register('phone')}
                                                 error={!!errors.phone}
                                                 helperText={errors.phone?.message}
@@ -244,12 +230,12 @@ Message: ${formData.message || 'No additional message'}`;
                                         <Grid size={{ xs: 12, sm: 6 }}>
                                             <TextField
                                                 fullWidth
-                                                label="Service Interested In"
+                                                label={CONTACT_CONTENT.FORM.FIELDS.SERVICE_LABEL}
                                                 {...register('service')}
                                                 error={!!errors.service}
                                                 helperText={errors.service?.message}
                                                 variant="outlined"
-                                                placeholder="e.g., Acrylic Nails, Lash Extensions"
+                                                placeholder={CONTACT_CONTENT.FORM.FIELDS.SERVICE_PLACEHOLDER}
                                                 slotProps={{
                                                     inputLabel: {
                                                         shrink: true,
@@ -260,7 +246,7 @@ Message: ${formData.message || 'No additional message'}`;
                                         <Grid size={{ xs: 12 }}>
                                             <TextField
                                                 fullWidth
-                                                label="Your Message"
+                                                label={CONTACT_CONTENT.FORM.FIELDS.MESSAGE_LABEL}
                                                 multiline
                                                 rows={4}
                                                 {...register('message')}
@@ -283,7 +269,7 @@ Message: ${formData.message || 'No additional message'}`;
                                                 fullWidth
                                                 disabled={isSubmitting}
                                             >
-                                                {isSubmitting ? 'Sending...' : 'Send Message'}
+                                                {isSubmitting ? CONTACT_CONTENT.FORM.FIELDS.SUBMITTING : CONTACT_CONTENT.FORM.FIELDS.SUBMIT_BUTTON}
                                             </Button>
                                         </Grid>
                                     </Grid>
@@ -295,7 +281,7 @@ Message: ${formData.message || 'No additional message'}`;
                         <Grid size={{ xs: 12, md: 5 }}>
                             <Box data-aos="fade-left">
                                 <Typography variant="h3" sx={{ mb: 4 }}>
-                                    Contact Information
+                                    {CONTACT_CONTENT.INFO.TITLE}
                                 </Typography>
 
                                 <Stack spacing={3} sx={{ mb: 6 }}>
@@ -305,7 +291,7 @@ Message: ${formData.message || 'No additional message'}`;
                                 </Stack>
 
                                 <Typography variant="h3" sx={{ mb: 3 }}>
-                                    Business Hours
+                                    {CONTACT_CONTENT.INFO.HOURS_TITLE}
                                 </Typography>
 
                                 <Stack spacing={2}>

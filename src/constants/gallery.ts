@@ -1,4 +1,3 @@
-// Images
 import acrylicNailsImg from '@/assets/images/acrylic_nails.jpg';
 import frenchTipsImg from '@/assets/images/french_tips.jpg';
 import gelXImg from '@/assets/images/gen_x_nails.jpg';

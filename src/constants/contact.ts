@@ -1,4 +1,3 @@
-// Contact information and business data
 import type { ReactNode } from 'react';
 
 export interface ContactInfo {

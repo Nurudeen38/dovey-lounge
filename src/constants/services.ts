@@ -1,5 +1,3 @@
-// Services data - all services offered by Dovey Nails Lounge
-
 export interface Service {
     name: string;
     description: string;

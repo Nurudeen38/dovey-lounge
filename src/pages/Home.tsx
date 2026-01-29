@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { Box, Container, Typography, Button, Stack, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 import AOS from 'aos';
-import { ROUTES } from '@/routes';
-import { HOME_PREVIEW_SERVICES, BUSINESS_STATS } from '@/constants';
+import { ROUTES } from '@/constants';
+import { HOME_PREVIEW_SERVICES, BUSINESS_STATS, HOME_CONTENT, PAGE_META } from '@/constants';
 import { SectionTitle, ServiceCard, StatItem, SEO, HeroBackground } from '@/components';
 import { HERO_SLIDES } from '@/constants/home';
 
@@ -20,8 +20,8 @@ const Home = () => {
     return (
         <>
             <SEO
-                title="Home"
-                description="Welcome to Dovey's Nail Lounge, the premier luxury nail spa in Dawaki, Abuja. We offer exquisite manicures, pedicures, lash extensions, and more."
+                title={PAGE_META.HOME.title}
+                description={PAGE_META.HOME.description}
             />
             {/* Hero Section */}
             <Box
@@ -51,7 +51,7 @@ const Home = () => {
                                         textShadow: '0 2px 4px rgba(0,0,0,0.3)',
                                     }}
                                 >
-                                    Dovey's Nail Lounge
+                                    {HOME_CONTENT.HERO.SUBTITLE}
                                 </Typography>
                                 <Typography
                                     variant="h1"
@@ -63,7 +63,7 @@ const Home = () => {
                                         textShadow: '0 2px 10px rgba(0,0,0,0.5)',
                                     }}
                                 >
-                                    Elegance at Your Fingertips
+                                    {HOME_CONTENT.HERO.TITLE}
                                 </Typography>
                                 <Typography
                                     variant="body1"
@@ -77,7 +77,7 @@ const Home = () => {
                                         display: { xs: 'none', md: 'block' },
                                     }}
                                 >
-                                    Located at Dawaki, Abuja, Dovey's Nail Lounge is the leading destination for exquisite and classy nail designs that will give you that timeless look. If you are looking for the best nail techs in Abuja, then you have come to the right place.
+                                    {HOME_CONTENT.HERO.DESCRIPTION_DESKTOP}
                                 </Typography>
                                 <Typography
                                     variant="body1"
@@ -91,7 +91,7 @@ const Home = () => {
                                         display: { xs: 'none', md: 'block' },
                                     }}
                                 >
-                                    We also offer other beauty services such as lash extensions, manicure and pedicure treatments, piercings, tattoos, makeup, etc, making us your one-stop shop for everything beauty in Abuja.
+                                    {HOME_CONTENT.HERO.ADDITIONAL_TEXT}
                                 </Typography>
 
                                 <Typography
@@ -106,7 +106,7 @@ const Home = () => {
                                         display: { xs: 'block', md: 'none' },
                                     }}
                                 >
-                                    Located at Dawaki, Abuja, Dovey's Nail Lounge is the leading destination for exquisite and classy nail designs that will give you that timeless look. If you are looking for the best nail and lash techs in Abuja, then you have come to the right place.
+                                    {HOME_CONTENT.HERO.DESCRIPTION_MOBILE}
                                 </Typography>
                                 <Stack direction="row" spacing={2}>
                                     <Button
@@ -116,7 +116,7 @@ const Home = () => {
                                         color="secondary"
                                         size="large"
                                     >
-                                        View Services
+                                        {HOME_CONTENT.HERO.CTA_PRIMARY}
                                     </Button>
                                     <Button
                                         component={Link}
@@ -133,7 +133,7 @@ const Home = () => {
                                             },
                                         }}
                                     >
-                                        Book Appointment
+                                        {HOME_CONTENT.HERO.CTA_SECONDARY}
                                     </Button>
                                 </Stack>
                             </Box>
@@ -147,9 +147,9 @@ const Home = () => {
                 <Container maxWidth="lg">
                     <Box data-aos="fade-up">
                         <SectionTitle
-                            subtitle="OUR SERVICES"
-                            title="Curated Beauty Experiences"
-                            description="From nail artistry to permanent makeup, discover our comprehensive range of beauty services designed to enhance your natural elegance."
+                            subtitle={HOME_CONTENT.SERVICES_PREVIEW.SUBTITLE}
+                            title={HOME_CONTENT.SERVICES_PREVIEW.TITLE}
+                            description={HOME_CONTENT.SERVICES_PREVIEW.DESCRIPTION}
                         />
                     </Box>
 
@@ -176,7 +176,7 @@ const Home = () => {
                                 },
                             }}
                         >
-                            View All Services
+                            {HOME_CONTENT.SERVICES_PREVIEW.CTA}
                         </Button>
                     </Box>
                 </Container>
@@ -189,9 +189,9 @@ const Home = () => {
                         <Grid size={{ xs: 12, md: 6 }}>
                             <Box data-aos="fade-right">
                                 <SectionTitle
-                                    subtitle="ABOUT US"
-                                    title="The Dovey Experience"
-                                    description="At Dovey Nails Lounge, we believe beauty is an art form. Our skilled artisans combine traditional techniques with modern innovation to create stunning, personalized looks."
+                                    subtitle={HOME_CONTENT.ABOUT_PREVIEW.SUBTITLE}
+                                    title={HOME_CONTENT.ABOUT_PREVIEW.TITLE}
+                                    description={HOME_CONTENT.ABOUT_PREVIEW.DESCRIPTION}
                                     light
                                     align="left"
                                 />
@@ -208,7 +208,7 @@ const Home = () => {
                                         },
                                     }}
                                 >
-                                    Learn More
+                                    {HOME_CONTENT.ABOUT_PREVIEW.CTA}
                                 </Button>
                             </Box>
                         </Grid>
@@ -228,7 +228,7 @@ const Home = () => {
                 <Container maxWidth="md">
                     <Box data-aos="fade-up">
                         <Typography variant="h2" sx={{ mb: 2, color: '#FAF9F6' }}>
-                            Ready for Your Transformation?
+                            {HOME_CONTENT.CTA_SECTION.TITLE}
                         </Typography>
                         <Typography
                             variant="body1"
@@ -239,8 +239,7 @@ const Home = () => {
                                 mx: 'auto',
                             }}
                         >
-                            Book your appointment today and discover the perfect blend of
-                            artistry and relaxation at Dovey Nails Lounge.
+                            {HOME_CONTENT.CTA_SECTION.DESCRIPTION}
                         </Typography>
                         <Button
                             component={Link}
@@ -253,7 +252,7 @@ const Home = () => {
                                 '&:hover': { bgcolor: 'secondary.main' },
                             }}
                         >
-                            Book Your Appointment
+                            {HOME_CONTENT.CTA_SECTION.BUTTON}
                         </Button>
                     </Box>
                 </Container>

@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { Layout } from '@/components';
 import { Home, Services, About, Gallery, Contact } from '@/pages';
-import { ROUTES } from '@/routes';
+import { ROUTES } from '@/constants';
 import { BookingProvider } from '@/context/BookingContext';
 
 function App() {

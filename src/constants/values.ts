@@ -1,5 +1,3 @@
-// Company values for About page
-
 export interface Value {
     title: string;
     description: string;
