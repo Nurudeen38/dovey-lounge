@@ -27,6 +27,19 @@ export const HOME_CONTENT = {
     },
 };
 
+export const SERVICES_CONTENT = {
+    HERO: {
+        SUBTITLE: 'OUR SERVICES',
+        TITLE: 'Beauty Services',
+        DESCRIPTION: 'Discover our comprehensive menu of beauty services, from nail artistry to permanent makeup. Each service is delivered with precision, care, and attention to detail.',
+    },
+    CTA: {
+        TITLE: 'Ready to Book?',
+        DESCRIPTION: 'Contact us to schedule your appointment and experience the Dovey difference.',
+        BUTTON: 'Book Appointment',
+    },
+};
+
 export const ABOUT_CONTENT = {
     HERO: {
         SUBTITLE: 'ABOUT US',

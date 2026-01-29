@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
-import { Box, Container, Button, Grid } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { Box, Container, Button, Grid, Tabs, Tab } from '@mui/material';
 import { Link } from 'react-router-dom';
 import AOS from 'aos';
 import { ROUTES } from '@/constants';
-import { SERVICE_CATEGORIES, PAGE_META } from '@/constants';
+import { SERVICE_CATEGORIES, PAGE_META, SERVICES_CONTENT } from '@/constants';
 import { SectionTitle, ServiceCard, SEO } from '@/components';
 import { useBooking } from '@/context/BookingContext';
 import { Fab, Fade } from '@mui/material';
@@ -11,6 +11,11 @@ import { BookmarkAdd } from '@mui/icons-material';
 
 const Services = () => {
     const { toggleService, isServiceSelected, selectedServices } = useBooking();
+    const [activeCategory, setActiveCategory] = useState('all');
+
+    const filteredCategories = activeCategory === 'all'
+        ? SERVICE_CATEGORIES
+        : SERVICE_CATEGORIES.filter(cat => cat.title === activeCategory);
 
     useEffect(() => {
         AOS.init({ duration: 800, once: true, easing: 'ease-out-cubic' });
@@ -28,21 +33,51 @@ const Services = () => {
                 <Container maxWidth="lg">
                     <Box data-aos="fade-up">
                         <SectionTitle
-                            subtitle="OUR SERVICES"
-                            title="Beauty Services"
-                            description="Discover our comprehensive menu of beauty services, from nail artistry to permanent makeup. Each service is delivered with precision, care, and attention to detail."
+                            subtitle={SERVICES_CONTENT.HERO.SUBTITLE}
+                            title={SERVICES_CONTENT.HERO.TITLE}
+                            description={SERVICES_CONTENT.HERO.DESCRIPTION}
                             light
                         />
                     </Box>
                 </Container>
             </Box>
 
+            {/* Filter Tabs */}
+            <Box sx={{ mb: 4, bgcolor: 'background.default', pt: 4 }}>
+                <Container maxWidth="lg">
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Tabs
+                            value={activeCategory}
+                            onChange={(_, newValue) => setActiveCategory(newValue)}
+                            variant="scrollable"
+                            scrollButtons="auto"
+                            allowScrollButtonsMobile
+                            sx={{
+                                '& .MuiTab-root': {
+                                    textTransform: 'uppercase',
+                                    fontWeight: 500,
+                                    letterSpacing: '0.1em',
+                                    fontSize: '0.875rem',
+                                },
+                                '& .Mui-selected': { color: 'secondary.main' },
+                                '& .MuiTabs-indicator': { bgcolor: 'secondary.main' },
+                            }}
+                        >
+                            <Tab value="all" label="All Services" />
+                            {SERVICE_CATEGORIES.map((cat) => (
+                                <Tab key={cat.title} value={cat.title} label={cat.title} />
+                            ))}
+                        </Tabs>
+                    </Box>
+                </Container>
+            </Box>
+
             {/* Service Categories */}
-            {SERVICE_CATEGORIES.map((category, catIndex) => (
+            {filteredCategories.map((category, catIndex) => (
                 <Box
                     key={category.title}
                     sx={{
-                        py: 10,
+                        py: 4,
                         bgcolor: catIndex % 2 === 0 ? 'background.default' : 'background.paper',
                     }}
                 >
@@ -74,8 +109,8 @@ const Services = () => {
             <Box sx={{ py: 10, bgcolor: 'success.main', textAlign: 'center' }}>
                 <Container maxWidth="md">
                     <SectionTitle
-                        title="Ready to Book?"
-                        description="Contact us to schedule your appointment and experience the Dovey difference."
+                        title={SERVICES_CONTENT.CTA.TITLE}
+                        description={SERVICES_CONTENT.CTA.DESCRIPTION}
                         light
                     />
                     <Button
@@ -89,7 +124,7 @@ const Services = () => {
                             '&:hover': { bgcolor: 'secondary.main' },
                         }}
                     >
-                        Book Appointment
+                        {SERVICES_CONTENT.CTA.BUTTON}
                     </Button>
                 </Container>
             </Box>
