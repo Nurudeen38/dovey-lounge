@@ -3,6 +3,7 @@ import { Layout } from '@/components';
 import { Home, Services, About, Gallery, Contact } from '@/pages';
 import { ROUTES } from '@/constants';
 import { BookingProvider } from '@/context/BookingContext';
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path={ROUTES.CONTACT} element={<Contact />} />
         </Route>
       </Routes>
+      <Analytics />
     </BookingProvider>
   );
 }
