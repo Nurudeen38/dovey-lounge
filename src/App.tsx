@@ -3,10 +3,12 @@ import { Layout } from '@/components';
 import { Home, Services, About, Gallery, Contact } from '@/pages';
 import { ROUTES } from '@/constants';
 import { BookingProvider } from '@/context/BookingContext';
+import { CustomCursor } from '@/components/atoms';
 
 function App() {
   return (
     <BookingProvider>
+      <CustomCursor />
       <Routes>
         <Route element={<Layout />}>
           <Route path={ROUTES.HOME} element={<Home />} />
