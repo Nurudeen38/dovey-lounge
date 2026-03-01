@@ -91,7 +91,7 @@ const CustomCursor = () => {
                     borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%', // Elegant almond nail shape
                     boxShadow: 'inset 0 4px 6px rgba(18, 187, 128, 0.31), inset 0 -2px 4px rgba(28, 234, 210, 0.1)',
                     pointerEvents: 'none',
-                    zIndex: 200,
+                    zIndex: 20000,
                     opacity: isVisible ? 1 : 0,
                     transition: 'opacity 0.3s',
                     willChange: 'transform',
